@@ -33,6 +33,31 @@ var annoyingSites = [
   'whitehouse.gov' // never interesting
 ];
 
+var newsSites = [
+  'ap.org',
+  'bbc.co.uk',
+  'cnn.com',
+  'dailymail.co.uk',
+  'nytimes.com',
+  'theguardian.com',
+  'washingtonpost.com',
+  'wsj.com'
+];
+
+var techSites = [
+  'cnet.com',
+  'techcrunch.com'
+];
+
+var businessSites = [
+  'bloomberg.com',
+  'businessinsider.com',
+  'forbes.com',
+  'fortune.com',
+  'techcrunch.com',
+  'wsj.com'
+];
+
 //flamebait
 var crapTerms = [
   'accused',
