@@ -4,25 +4,29 @@
 // @description Remove items from Hacker News I'm probably not gonna like.
 // @include     https://news.ycombinator.com/new*
 // @include     https://news.ycombinator.com/
-// @version     1
+// @version     1.1
 // @grant       none
 // ==/UserScript==
 
 var annoyingSites = [
   'aeon.co', // too fluffy
+  'bbc.com', // biased american reporting
   'dailydot.com', // more often bad than good
   'dailymail.co.uk', // low quality
+  'daringfireball.net', // no use for this whatsoever
   'icracked.com', // irrelevant
   'iflscience', // low quality
   'medium.com', // low quality
   'modelviewculture.com', // activist
   'nautil.us', // factoids
+  'npr.org', // depressing
   'nytimes.com', // will probably annoy me
   'polygon.com', // clickbait, low-quality
   'qz.com', // really bad more often than really good
   'reason.com', // libertarian/outrage-porn
   'techdirt.com', // outrage-porn, usually low-quality
   'ted.com', // TED
+  'theatlantic.com', // more often bad than good
   'theguardian.com', // will probably annoy me
   'themarysue.com', // way too snarky
   'theverge.com', // clickbait, low-quality editorials
@@ -30,15 +34,19 @@ var annoyingSites = [
   'vice.com', // more annoying than good
   'vox.com', // everything
   'washingtonpost.com', // more often annoying than good
-  'whitehouse.gov' // never interesting
+  'whitehouse.gov', // never interesting
+  'xkcd.com' // if it's any good i'll hear about it from someone else
 ];
 
 var newsSites = [
   'ap.org',
   'bbc.co.uk',
+  'bbc.com',
   'cnn.com',
   'dailymail.co.uk',
+  'npr.org',
   'nytimes.com',
+  'pbs.org',
   'theguardian.com',
   'washingtonpost.com',
   'wsj.com'
@@ -73,13 +81,15 @@ var crapTerms = [
   'feminism','feminist',
   'free speech','freedom of speech',
   'gamergate','blocklist','randi harper','zoe quinn','brianna wu',
+  'gawker',
   'gentrification','gentrify','gentrified',
   'harass','harassing','harassment',
   'hbd','iq','neoreactionary','curtis yarvin','mencius moldbug',
   'hate speech',
+  'h1b','h1-b','h-1b',
   'immigration','immigrant', 'undocumented immigrants',
   'impostor syndrome',
-  'interview',
+  'interview','interviews','interviewing',
   'mark pincus','zynga',
   'mental illness','mental illnesses',
   'mongodb',
@@ -89,7 +99,9 @@ var crapTerms = [
   'politics',
   'racist','racism','racial',
   'reddit',
+  'right to be forgotten','right-to-be-forgotten',
   'riots','rioting',
+  'san francisco','san franciscan',
   'snowden','greenwald','poitras','intelligence service','nsa','fbi','surveillance','doj','subpoena',
   'sex','sexism','sexist','sexual',
   'suicide','suicides','suicidal',
