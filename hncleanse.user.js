@@ -4,26 +4,31 @@
 // @description Remove items from Hacker News I'm probably not gonna like.
 // @include     https://news.ycombinator.com/new*
 // @include     https://news.ycombinator.com/
-// @version     1.1
+// @version     1.2
 // @grant       none
 // ==/UserScript==
 
 var annoyingSites = [
   'aeon.co', // too fluffy
   'bbc.com', // biased american reporting
+  'brookings.edu', //political
   'dailydot.com', // more often bad than good
   'dailymail.co.uk', // low quality
   'daringfireball.net', // no use for this whatsoever
+  'gizmodo.com', // gawker
   'icracked.com', // irrelevant
   'iflscience', // low quality
+  'io9.com', // gawker
   'medium.com', // low quality
   'modelviewculture.com', // activist
   'nautil.us', // factoids
+  'newyorker.com', // not that bad but still not interested
   'npr.org', // depressing
   'nytimes.com', // will probably annoy me
   'polygon.com', // clickbait, low-quality
   'qz.com', // really bad more often than really good
   'reason.com', // libertarian/outrage-porn
+  'salon.com', // clickbait,outrage porn
   'techdirt.com', // outrage-porn, usually low-quality
   'ted.com', // TED
   'theatlantic.com', // more often bad than good
@@ -68,12 +73,15 @@ var businessSites = [
 
 //flamebait
 var crapTerms = [
+  'aaron swartz',
   'accused',
   'airport security',
   'apple watch',
   'basic income','mincome',
   'boycott','boycotting',
   'bully','bullying',
+  'ceo','cfo','cto','coo',
+  'cispa',
   'code of conduct',
   'culture','cultural',
   'democracy', 'democratic', //may be too general
@@ -91,6 +99,7 @@ var crapTerms = [
   'impostor syndrome',
   'interview','interviews','interviewing',
   'mark pincus','zynga',
+  'marijuana',
   'mental illness','mental illnesses',
   'mongodb',
   'obama',"obama's",
@@ -102,23 +111,21 @@ var crapTerms = [
   'right to be forgotten','right-to-be-forgotten',
   'riots','rioting',
   'san francisco','san franciscan',
-  'snowden','greenwald','poitras','intelligence service','nsa','fbi','surveillance','doj','subpoena',
+  'snowden','greenwald','poitras','intelligence service','nsa','fbi','surveillance','doj','subpoena','mi6',
   'sex','sexism','sexist','sexual',
   'suicide','suicides','suicidal',
+  'supreme court',
   'systemd',
   'tech industry',
   'treaty',
+  'ttip',
   'trolls','trolling','troll', //may be too general
-  'uber'
+  'uber',
+  'war on drugs',
+  'women'
 ];
 
-var i;
-var crapStr ='';
-for (i=0; i<crapTerms.length;i++) {
-  crapStr += crapTerms[i];
-  if (i<(crapTerms.length-1)) crapStr += '|';
-}
-crapStr = '\\b(?:' + crapStr + ')\\b';
+var crapStr = '\\b(?:' + crapTerms.join('|') + ')\\b';
 crapRegex = new RegExp(crapStr, 'i');
 
 function isCrap(testStr) {
@@ -141,9 +148,12 @@ while ((elem = result.snapshotItem(i)) != null) {
   var athing = elem.parentNode.parentNode;
   var title = athing.querySelector('td[class="title"] > a[href]').innerHTML;
 
+  var crap = null;
   var shouldRemove = shouldRemoveSite(sitebit);
-  var crap = isCrap(title);
-  if (crap != null) { crap = crap.join(); }
+  if (!shouldRemove) {
+  	crap = isCrap(title);
+  	if (crap != null) { crap = crap.join(); }
+  }
 
   if (shouldRemove || crap != null) {
     var reason = shouldRemove?('site '+sitebit):('terms '+crap);
