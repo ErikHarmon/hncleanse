@@ -19,6 +19,7 @@ var annoyingSites = [
   'icracked.com', // irrelevant
   'iflscience', // low quality
   'io9.com', // gawker
+  'jalopnik.com', // gawker
   'medium.com', // low quality
   'modelviewculture.com', // activist
   'nautil.us', // factoids
@@ -98,6 +99,7 @@ var crapTerms = [
   'immigration','immigrant', 'undocumented immigrants',
   'impostor syndrome',
   'interview','interviews','interviewing',
+  'japan', 'japanese', //these are ALWAYS crap
   'mark pincus','zynga',
   'marijuana',
   'mental illness','mental illnesses',
@@ -144,9 +146,9 @@ var result =
 document.evaluate("//tr[@class='athing']//span[@class='sitebit comhead']", document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
 var i=0;
 while ((elem = result.snapshotItem(i)) != null) {
-  var sitebit = elem.innerHTML.substring(2,elem.innerHTML.length-1);
   var athing = elem.parentNode.parentNode;
-  var title = athing.querySelector('td[class="title"] > a[href]').innerHTML;
+  var sitebit = athing.querySelector('span[class="sitestr"]').innerHTML;
+  var title = athing.querySelector('td[class="title"] a').innerHTML;
 
   var crap = null;
   var shouldRemove = shouldRemoveSite(sitebit);
